@@ -16,12 +16,36 @@ namespace MyDatabase.REPL
                 HelperMethods.PrintPrompt();
                 var input = Console.ReadLine();
 
-                if (input == ".exit")
+                if (!string.IsNullOrEmpty(input))
                 {
-                    return;
-                }
+                    if (input.First() == '.')
+                    {
+                        switch (HelperMethods.DoMetaCommand(input))
+                        {
+                            case MetaCommandResult.Success:
+                                break;
+                            case MetaCommandResult.UnrecognizedCommand:
+                                Console.WriteLine($"Unrecognized command {input}");
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                    else
+                    {
+                        switch (HelperMethods.PrepateStatement(input, out var statement))
+                        {
+                            case PrepareResult.Success:
+                                break;
+                            case PrepareResult.UnrecognizedStatement:
+                                Console.WriteLine($"Unrecognized keyword at start of {input}");
+                                break;
+                        }
 
-                Console.WriteLine($"Unrecognized command {input}");
+                        HelperMethods.ExecuteStatement(statement);
+                        Console.WriteLine("Executed");
+                    }
+                }
             }
         }
     }

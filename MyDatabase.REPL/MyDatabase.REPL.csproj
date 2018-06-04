@@ -43,8 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HelperMethods.cs" />
+    <Compile Include="MetaCommandResult.cs" />
+    <Compile Include="PrepareResult.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statement.cs" />
+    <Compile Include="StatementType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
